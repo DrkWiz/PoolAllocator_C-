@@ -52,3 +52,32 @@ void* PoolAllocator::allocate() {
 };
 
 
+// Deallocate a block of memory back to the pool
+bool PoolAllocator::deallocate(void* ptro) {
+   
+    if (!ptro) {
+        return false; // Cannot deallocate a null pointer
+    }
+
+    // Add the block back to the free list
+    nodo* bloqueLiberado = static_cast<nodo*>(ptro);
+    bloqueLiberado->siguiente = m_ListaLibre; // Point to the current head of the free list
+    m_ListaLibre = bloqueLiberado; // Update the head of the free list
+
+    return true;
+};
+
+
+// Get statistics about the pool: number of free blocks and total blocks
+std::pair<std::size_t, std::size_t> PoolAllocator::getStats() const {
+   
+    std::size_t bloquesLibres = 0;
+    nodo* actual = m_ListaLibre;
+
+    while (actual) {
+        ++bloquesLibres;
+        actual = actual->siguiente;
+    }
+
+    return {bloquesLibres, m_tamanioPool / m_tamanioBloque};
+};

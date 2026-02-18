@@ -19,8 +19,7 @@ class PoolAllocator {
 
     void* allocate();
     bool deallocate(void* ptr); 
-    std::pair<std::size_t, std::size_t> getStats() const; 
-    
+    std::pair<std::size_t, std::size_t> getStats() const; // statistics about the pool
     private:
     void* m_ptroInicial = nullptr;    
     nodo* m_ListaLibre = nullptr;   
