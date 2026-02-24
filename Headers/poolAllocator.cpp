@@ -81,3 +81,5 @@ std::pair<std::size_t, std::size_t> PoolAllocator::getStats() const {
 
     return {bloquesLibres, m_tamanioPool / m_tamanioBloque};
 };
+
+
